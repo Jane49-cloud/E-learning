@@ -1,6 +1,13 @@
 import "@/styles/globals.css";
-import "antd/dist/reset.css";
+
+import Navbar from "@/constants/Navbar";
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Navbar />
+
+      <Component {...pageProps} />
+    </>
+  );
 }
