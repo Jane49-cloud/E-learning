@@ -8,34 +8,34 @@ const Navbar = () => {
         <div>
           <Menu.Item key="logo">
             <Link href="/">
-              <h1 className="navbar-logo">Logo</h1>
+              <span className="navbar-logo">Logo</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="courses">
             <Link href="/courses">
-              <h1>Courses</h1>
+              <span>Courses</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="about">
             <Link href="/about">
-              <h1>About</h1>
+              <span>About</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="contact">
             <Link href="/contact">
-              <h1>Contact</h1>
+              <span>Contact</span>
             </Link>
           </Menu.Item>
         </div>
-        <div className="">
-          <Menu.Item key="about">
-            <Link href="/about">
-              <h1>Login</h1>
+        <div>
+          <Menu.Item key="login">
+            <Link href="/login">
+              <span>Login</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="contact">
-            <Link href="/contact">
-              <h1>Register</h1>
+          <Menu.Item key="register">
+            <Link href="/register">
+              <span>Register</span>
             </Link>
           </Menu.Item>
         </div>

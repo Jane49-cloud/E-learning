@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "@/context";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
@@ -10,6 +11,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const { state, dispatch } = useContext(Context);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,9 +27,15 @@ const Login = () => {
     }
     try {
       const response = await loginUser(formData);
+      console.log(response.data);
       if (response.success) {
         toast.success(response.message);
         console.log(response);
+        dispatch({
+          type: "LOGIN",
+          payload: response.data,
+        });
+
         window.location.href = "/";
       } else {
         toast.error(response.message);
