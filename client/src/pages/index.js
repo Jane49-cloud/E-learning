@@ -1,12 +1,25 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import ProtectedRoutes from "./protected.routes";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-const inter = Inter({ subsets: ["latin"] });
+function Home() {
+  const router = useRouter();
 
-export default function Home() {
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      router.push("/login");
+    }
+  }, []);
+
   return (
-    <div className="container text-2xl p-5 text-primary-dark rounded-box">
-      Hello
-    </div>
+    <ProtectedRoutes>
+      <div className="container text-2xl p-5 text-primary-dark rounded-box">
+        Hello
+      </div>
+    </ProtectedRoutes>
   );
 }
+
+export default Home;

@@ -25,13 +25,13 @@ export const register = async (req, res) => {
     const user = await newUser.save();
 
     res.send({
-      success: "true",
+      success: true,
       message: "User created successfully",
       data: user,
     });
   } catch (error) {
     res.send({
-      success: "false",
+      success: false,
       message: error.message || "User creation failed",
       error: error.message || "User creation failed",
     });
@@ -66,15 +66,51 @@ export const login = async (req, res) => {
 
     res.send({
       success: true, // Changed "success" to true
-      message: "success",
+      message: "user logged in successfully",
       data: user,
+      token: token,
     });
+    console.log(user);
+    return;
   } catch (error) {
     console.log(error);
     res.send({
       success: false,
       message: error.message || "password or email is incorrect",
       error: error.message || "password or email is incorrect",
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie();
+    res.send({
+      success: true,
+      message: "Logout successful...",
+    });
+    return;
+  } catch (error) {
+    res.send({
+      success: false,
+      message: "Logout failed...",
+    });
+  }
+};
+
+export const currentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    res.send({
+      success: true,
+      message: "data fetched successfully",
+      data: user,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
     });
   }
 };

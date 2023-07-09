@@ -2,17 +2,29 @@ import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 import Link from "next/link";
 import { TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "@/pages/api/user.actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setLoader } from "@/Redux/LoaderSlice";
+
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,10 +39,12 @@ const Register = () => {
     }
 
     try {
+      dispatch(setLoader(true));
       const response = await registerUser(formData);
+      dispatch(setLoader(false));
       if (response.success) {
         toast.success(response.message);
-        // navigate("/login");
+
         console.log(formData, response);
       } else {
         toast.error(response.message);
@@ -38,6 +52,7 @@ const Register = () => {
       console.log(response);
     } catch (error) {
       toast.error(error.message);
+      dispatch(setLoader(false));
     }
   };
 
