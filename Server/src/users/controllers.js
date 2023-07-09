@@ -1,6 +1,19 @@
 import User from "./models.js";
 import { hashPassword, comparePassword } from "../../helpers/bcrypt.js";
 import jwt from "jsonwebtoken";
+import AWS from "aws-sdk";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const awsConfig = {
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION || "us-east-1",
+};
+
+AWS.config.update(awsConfig);
+const SES = new AWS.SES();
 
 export const register = async (req, res) => {
   try {
@@ -112,5 +125,47 @@ export const currentUser = async (req, res) => {
       message: "An error occurred",
       error: error.message,
     });
+  }
+};
+
+export const testEmail = async (req, res) => {
+  try {
+    const params = {
+      Source: process.env.EMAIL_FROM,
+      Destination: {
+        ToAddresses: ["janendirangu49@gmail.com"],
+      },
+      ReplyToAddresses: [process.env.EMAIL_FROM],
+      Message: {
+        Body: {
+          Html: {
+            Charset: "UTF-8",
+            Data: `
+            <html>
+            <body>
+            <h1>Hello</h1>
+            <p>Testing email</p>
+            <
+            /body>
+            </html>
+            `,
+          },
+        },
+        Subject: {
+          Charset: "UTF-8",
+          Data: "Test email",
+        },
+      },
+    };
+
+    const emailSent = SES.sendEmail(params).promise();
+    emailSent.then((data) => {
+      console.log(data);
+      res.send({
+        success: true,
+      });
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
