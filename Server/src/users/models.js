@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     stripe_account_id: {},
     stripe_seller: {},
     stripeSessions: {},
+    passwordResetCode: {},
   },
   {
     timestamps: true,
