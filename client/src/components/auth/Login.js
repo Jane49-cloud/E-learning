@@ -91,7 +91,7 @@ const Login = () => {
           </button>
           <p className="mt-4 text-center">
             Forgot password?{" "}
-            <Link href="#" className="text-blue-500 underline">
+            <Link href="/forgot-password" className="text-blue-500 underline">
               Reset Password{" "}
             </Link>
           </p>
