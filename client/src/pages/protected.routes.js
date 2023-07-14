@@ -5,7 +5,7 @@ import { setLoader } from "@/Redux/LoaderSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getUser } from "./api/user.actions";
-import Navbar from "@/constants/Navbar";
+import Sidebar from "@/constants/sidebar";
 
 const ProtectedRoutes = ({ children }) => {
   const dispatch = useDispatch();
@@ -32,9 +32,15 @@ const ProtectedRoutes = ({ children }) => {
 
   return (
     user && (
-      <div>
-        {children}
-        <ToastContainer />
+      <div className=" mx-auto w-4/4 p-4">
+        <div className="flex">
+          <div className="w-1/4">
+            <Sidebar />
+          </div>
+          <div className="w-3/4 p-2">
+            <div className="">{children}</div>
+          </div>
+        </div>
       </div>
     )
   );

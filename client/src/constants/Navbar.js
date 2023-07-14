@@ -11,6 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user } = useSelector((state) => state.users);
+  console.log(user);
 
   const logout = async () => {
     try {
@@ -51,6 +52,20 @@ const Navbar = () => {
               </Link>
             </Menu.Item>
           </div>
+
+          {user && user.role && user.role.includes("instructor") ? (
+            <Menu.Item key="instructor/course/create">
+              <Link href="/instructor/course/create">
+                <span>Create course</span>
+              </Link>
+            </Menu.Item>
+          ) : (
+            <Menu.Item key="login">
+              <Link href="/user/instructor">
+                <span>Become an Instructor</span>
+              </Link>
+            </Menu.Item>
+          )}
           {user === null ? (
             <div>
               <Menu.Item key="login">

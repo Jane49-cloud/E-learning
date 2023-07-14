@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import ProtectedRoutes from "./protected.routes";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -15,9 +14,7 @@ function Home() {
 
   return (
     <ProtectedRoutes>
-      <div className="container text-2xl p-5 text-primary-dark rounded-box">
-        Hello
-      </div>
+      <div className="">Hello</div>
     </ProtectedRoutes>
   );
 }

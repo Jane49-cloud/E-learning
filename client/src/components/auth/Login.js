@@ -37,7 +37,7 @@ const Login = () => {
         toast.success(response.message);
         console.log(response);
         localStorage.setItem("token", response.token);
-        router.push("/");
+        router.push("/user");
       } else {
         toast.error(response.message);
       }
@@ -50,7 +50,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      router.push("/");
+      router.push("/user");
     }
   }, []);
   return (
