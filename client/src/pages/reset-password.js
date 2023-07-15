@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from "react";
+import Form from "antd/lib/form/Form";
+import React, { useState } from "react";
+import Input from "antd/lib/input/Input";
+import { setLoader } from "@/Redux/LoaderSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import Form from "antd/lib/form/Form";
-import Input from "antd/lib/input/Input";
-import { setLoader } from "@/Redux/LoaderSlice";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const { user } = useSelector((state) => state.users);
 
   const onFinish = async () => {
     try {
       dispatch(setLoader(true));
       const response = await axios.post(
-        "http://localhost:8000/users/forgot-password",
-        { email }
+        "http://localhost:8000/users/reset-password",
+        { email, code, password }
       );
       dispatch(setLoader(false));
       if (response.data.success) {
         toast.success(response.data.message);
-        router.push("/reset-password");
+        router.push("/login");
+        console.log(response.data);
       } else {
         toast.error(response.data.message);
       }
@@ -39,7 +41,7 @@ const ForgotPassword = () => {
       <div className="bg-white border p-5  flex flex-col align-center w-[500px]  mt-2 rounded-md">
         <Form onFinish={onFinish}>
           <div className="flex flex-col items-center">
-            <h1 className="text-xl font-bold mb-3">Forgot Password?</h1>
+            <h1 className="text-xl font-bold mb-3">Reset password</h1>
             <p>
               Enter your Email below and check your email for a password reset
               link
@@ -52,6 +54,22 @@ const ForgotPassword = () => {
               name="email"
               className="height-[40px] m-2 rounded-md"
               onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              required
+              placeholder="Enter your code"
+              value={code}
+              name="code"
+              className="height-[40px] m-2 rounded-md"
+              onChange={(e) => setCode(e.target.value)}
+            />
+            <Input
+              required
+              placeholder="Enter a new password"
+              value={password}
+              name="password"
+              className="height-[40px] m-2 rounded-md"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button
@@ -66,4 +84,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

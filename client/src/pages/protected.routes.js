@@ -32,9 +32,9 @@ const ProtectedRoutes = ({ children }) => {
 
   return (
     user && (
-      <div className=" mx-auto w-4/4 p-4">
+      <div className="">
         <div className="flex">
-          <div className="w-1/4">
+          <div className=" w-60 bg-green-300">
             <Sidebar />
           </div>
           <div className="w-3/4 p-2">

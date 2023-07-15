@@ -9,7 +9,7 @@ import Select from "antd/lib/select";
 const NewCourse = () => {
   return (
     <ProtectedRoutes>
-      <div className="bg-white rounded-md">
+      <div className="bg-white rounded-md shadow-md">
         <div className="h-[60px] flex justify-center items-center bg-secondary-dark h-[50px] ">
           <h1 className="text-white text-2xl">Create course</h1>
         </div>

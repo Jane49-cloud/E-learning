@@ -28,7 +28,12 @@ const userSchema = new mongoose.Schema(
     stripe_seller: {},
     stripeSessions: {},
     passwordResetCode: {},
+    passwordResetCode: {
+      type: String,
+      default: "",
+    },
   },
+
   {
     timestamps: true,
   }
